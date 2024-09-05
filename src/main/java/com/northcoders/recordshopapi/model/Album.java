@@ -35,5 +35,4 @@ public class Album {
     @JoinColumn(name="stockId", referencedColumnName = "stockId")
     Stock stockId;
 
-
 }
