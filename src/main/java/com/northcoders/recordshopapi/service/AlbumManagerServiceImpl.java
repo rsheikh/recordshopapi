@@ -32,4 +32,15 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     public Optional<Album> getAlbumById(Long albumId) {
         return albumManagerRepository.findById(albumId);
     }
+
+    @Override
+    public Album updateAlbumById(Optional<Album> albumToUpdate, Album albumFromUrl) {
+        albumToUpdate.get().setAlbumName(albumFromUrl.getAlbumName());
+        albumToUpdate.get().setArtist(albumFromUrl.getArtist());
+        albumToUpdate.get().setYearReleased(albumFromUrl.getYearReleased());
+        albumToUpdate.get().setGenre(albumFromUrl.getGenre());
+        albumToUpdate.get().getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
+
+        return albumManagerRepository.save(albumToUpdate.get());
+    }
 }

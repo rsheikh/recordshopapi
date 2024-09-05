@@ -34,4 +34,6 @@ public class Album {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="stockId", referencedColumnName = "stockId")
     Stock stockId;
+
+
 }

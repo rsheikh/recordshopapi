@@ -1,5 +1,6 @@
 package com.northcoders.recordshopapi.controller;
 
+import com.northcoders.recordshopapi.exception.ItemNotFoundException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.service.AlbumManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +39,27 @@ public class AlbumManagerController {
 
         return new ResponseEntity<>(album, HttpStatus.FOUND);
     }
+
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<String> updateAlbumById(@RequestBody Album albumFromUrl, @PathVariable("id") Long albumId) {
+        Album album = new Album();
+
+        Optional<Album> albumToUpdate = Optional.ofNullable(albumManagerService.getAlbumById(albumId)
+                .orElseThrow(() -> new ItemNotFoundException("Album with id: " + albumId + " does not exist.")));
+
+        if(albumToUpdate.isPresent()) {
+            album = albumManagerService.updateAlbumById(albumToUpdate, albumFromUrl);
+//            albumToUpdate.get().setAlbumName(albumFromUrl.getAlbumName());
+//            albumToUpdate.get().setArtist(albumFromUrl.getArtist());
+//            albumToUpdate.get().setYearReleased(albumFromUrl.getYearReleased());
+//            albumToUpdate.get().setGenre(albumFromUrl.getGenre());
+//            albumToUpdate.get().getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
+        }
+
+        return new ResponseEntity<>(album.getAlbumName() + " updated successfully.", HttpStatus.OK);
+
+    }
+
+
 }
