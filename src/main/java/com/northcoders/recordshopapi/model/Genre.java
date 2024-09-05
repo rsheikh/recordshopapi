@@ -3,8 +3,8 @@ package com.northcoders.recordshopapi.model;
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
-@Entity
-@NoArgsConstructor
+//@Entity
+//@NoArgsConstructor
 public enum Genre {
     ROCK("Rock"),
     HIPHOP("Hip-Hop"),
