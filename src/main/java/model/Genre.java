@@ -1,5 +1,10 @@
 package model;
 
+import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
 public enum Genre {
     ROCK("Rock"),
     HIPHOP("Hip-Hop"),
