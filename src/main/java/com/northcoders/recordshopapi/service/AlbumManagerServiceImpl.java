@@ -1,4 +1,7 @@
 package com.northcoders.recordshopapi.service;
 
-public class AlbumManagerServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class AlbumManagerServiceImpl implements AlbumManagerService {
 }
