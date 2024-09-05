@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -107,7 +108,7 @@ class AlbumManagerControllerTest {
 
     @Test
     @DisplayName("Add a new album")
-    public void testPostMappingAddAlbum() throws Exception {
+    public void testAddAlbum() throws Exception {
 
         Album album = new Album(11L, "Ariana Grande", "Eternal Sunshine", 2024L, Genre.POP, new Stock(11L, 60L));
 
@@ -122,4 +123,21 @@ class AlbumManagerControllerTest {
         verify(mockAlbumManagerServiceImpl, times(1)).insertAlbum(album);
     }
 
+    @Test
+    @DisplayName("Test retrieval of album by Id")
+    void testGetAlbumById() throws Exception {
+
+        Optional<Album> album = Optional.of(new Album(12L, "Sia", "1000 Forms of Fear", 2014L, Genre.POP, new Stock(12L, 44L) ));
+
+        when(mockAlbumManagerServiceImpl.getAlbumById(12L)).thenReturn(album);
+
+        this.mockMvcController.perform(
+                MockMvcRequestBuilders.get("/api/v1/recordshop/12"))
+                .andExpect(MockMvcResultMatchers.status().isFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.artist").value("Sia"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.albumName").value("1000 Forms of Fear"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.yearReleased").value(2014L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value("POP"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.stockId.quantityInStock").value(44L));
+    }
 }
