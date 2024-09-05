@@ -6,32 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Album {
+public class Stock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    Long albumId;
+    Long stockId;
 
     @Column
-    String artist;
+    Long quantityInStock;
 
-    @Column
-    String albumName;
-
-    @Column
-    Long yearReleased;
-
-    @Column
-    Genre genre;
-
-    @OneToOne
-    @JoinColumn(name="stockId", referencedColumnName = "stockId")
-    Stock stockId;
 }
