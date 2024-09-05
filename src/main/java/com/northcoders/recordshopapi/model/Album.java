@@ -1,4 +1,4 @@
-package model;
+package com.northcoders.recordshopapi.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
