@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -95,13 +96,30 @@ class AlbumManagerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].albumName").value("Hysteria"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].yearReleased").value(1987L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].genre").value("ROCK"))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].stock.quantityInStock").value(20L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].stockId.quantityInStock").value(20L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[8].artist").value("Ludovico Einaudi"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[8].albumName").value("Una Mattina"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[8].yearReleased").value(2004L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[8].genre").value("CLASSIC"));
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[8].stock").value(30L));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[8].genre").value("CLASSIC"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[8].stockId.quantityInStock").value(30L));
 
+    }
+
+    @Test
+    @DisplayName("Add a new album")
+    public void testPostMappingAddAlbum() throws Exception {
+
+        Album album = new Album(11L, "Ariana Grande", "Eternal Sunshine", 2024L, Genre.POP, new Stock(11L, 60L));
+
+        when(mockAlbumManagerServiceImpl.insertAlbum(album)).thenReturn(album);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.post("/api/v1/recordshop/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(album)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        verify(mockAlbumManagerServiceImpl, times(1)).insertAlbum(album);
     }
 
 }
