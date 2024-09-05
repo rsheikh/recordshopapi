@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/recordshop")
@@ -29,5 +30,12 @@ public class AlbumManagerController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("album", "/api/v1/recordshop/" + album.getAlbumId().toString());
         return new ResponseEntity<>(newAlbum, httpHeaders, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Album>> getAlbumById(@PathVariable("id") Long albumId) {
+        Optional<Album> album = albumManagerService.getAlbumById(albumId);
+
+        return new ResponseEntity<>(album, HttpStatus.FOUND);
     }
 }
