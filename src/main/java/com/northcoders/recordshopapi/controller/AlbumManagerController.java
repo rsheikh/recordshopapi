@@ -34,30 +34,24 @@ public class AlbumManagerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Album>> getAlbumById(@PathVariable("id") Long albumId) {
-        Optional<Album> album = albumManagerService.getAlbumById(albumId);
+    public ResponseEntity<Album> getAlbumById(@PathVariable("id") Long albumId) {
+        Album album = albumManagerService.getAlbumById(albumId);
+        System.out.println("Album: " + album);
 
         return new ResponseEntity<>(album, HttpStatus.FOUND);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<String> updateAlbumById(@RequestBody Album albumFromUrl, @PathVariable("id") Long albumId) {
-        Album album = new Album();
+    public ResponseEntity<Album> updateAlbumById(@RequestBody Album albumFromUrl, @PathVariable("id") Long albumId) {
 
-        Optional<Album> albumToUpdate = Optional.ofNullable(albumManagerService.getAlbumById(albumId)
-                .orElseThrow(() -> new ItemNotFoundException("Album with id: " + albumId + " does not exist.")));
+        Album album = getAlbumById(albumId).getBody();
+        Album updatedAlbum = albumManagerService.updateAlbumById(album, albumFromUrl);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("album", "/api/v1/recordshop/" + updatedAlbum.getAlbumId().toString());
+        httpHeaders.add("successMessage", updatedAlbum + " updated successfully.");
 
-        if(albumToUpdate.isPresent()) {
-            album = albumManagerService.updateAlbumById(albumToUpdate, albumFromUrl);
-//            albumToUpdate.get().setAlbumName(albumFromUrl.getAlbumName());
-//            albumToUpdate.get().setArtist(albumFromUrl.getArtist());
-//            albumToUpdate.get().setYearReleased(albumFromUrl.getYearReleased());
-//            albumToUpdate.get().setGenre(albumFromUrl.getGenre());
-//            albumToUpdate.get().getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
-        }
-
-        return new ResponseEntity<>(album.getAlbumName() + " updated successfully.", HttpStatus.OK);
+        return new ResponseEntity<>(updatedAlbum, httpHeaders, HttpStatus.OK);
 
     }
 

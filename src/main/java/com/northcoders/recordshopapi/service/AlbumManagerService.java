@@ -10,7 +10,7 @@ public interface AlbumManagerService {
 
     Album insertAlbum(Album album);
 
-    Optional<Album> getAlbumById(Long albumId);
+    Album getAlbumById(Long albumId);
 
-    Album updateAlbumById(Optional<Album> albumToUpdate, Album albumFromUrl);
+    Album updateAlbumById(Album albumToUpdate, Album albumFromUrl);
 }

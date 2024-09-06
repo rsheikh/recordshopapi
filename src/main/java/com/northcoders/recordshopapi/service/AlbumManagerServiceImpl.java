@@ -29,18 +29,25 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     }
 
     @Override
-    public Optional<Album> getAlbumById(Long albumId) {
-        return albumManagerRepository.findById(albumId);
+    public Album getAlbumById(Long albumId) {
+        return albumManagerRepository.findById(albumId).get();
     }
 
     @Override
-    public Album updateAlbumById(Optional<Album> albumToUpdate, Album albumFromUrl) {
-        albumToUpdate.get().setAlbumName(albumFromUrl.getAlbumName());
-        albumToUpdate.get().setArtist(albumFromUrl.getArtist());
-        albumToUpdate.get().setYearReleased(albumFromUrl.getYearReleased());
-        albumToUpdate.get().setGenre(albumFromUrl.getGenre());
-        albumToUpdate.get().getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
+    public Album updateAlbumById(Album albumToUpdate, Album albumFromUrl) {
 
-        return albumManagerRepository.save(albumToUpdate.get());
+//        Album> albumToUpdate = Optional.ofNullable(albumManagerService.getAlbumById(albumId)
+//                .orElseThrow(() -> new ItemNotFoundException("Album with id: " + albumId + " does not exist.")));
+
+//        if(albumToUpdate.isPresent()) {
+//            album = albumManagerService.updateAlbumById(albumToUpdate, albumFromUrl);
+//        }
+        albumToUpdate.setAlbumName(albumFromUrl.getAlbumName());
+        albumToUpdate.setArtist(albumFromUrl.getArtist());
+        albumToUpdate.setYearReleased(albumFromUrl.getYearReleased());
+        albumToUpdate.setGenre(albumFromUrl.getGenre());
+        albumToUpdate.getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
+
+        return albumManagerRepository.save(albumToUpdate);
     }
 }
