@@ -13,4 +13,7 @@ public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
     List<Album> findAlbumsByGenre(Genre genreToSearch);
 
     List<Album> findAlbumsByYearReleased(Long yearReleased);
+
+    List<Album> findByArtistContaining(String artist);
+
 }

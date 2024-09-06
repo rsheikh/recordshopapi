@@ -58,32 +58,32 @@ public class AlbumManagerController {
 
         return new ResponseEntity<>("Album deleted", HttpStatus.OK);
     }
-/*
-    @GetMapping("/albums")
-    public ResponseEntity<List<Album>> getAlbumsByGenre(@RequestParam(value="genre") String genre) {
-        List<Album> albums = albumManagerService.getAlbumsByGenre(genre);
-
-        return new ResponseEntity<>(albums, HttpStatus.OK);
-    }
-
- */
 
     @GetMapping("/albums")
     public ResponseEntity<List<Album>> getAlbumsBy(
             @RequestParam(required=false, value="searchBy") String searchBy,
             @RequestParam(required=false, value="genre") String genre,
-            @RequestParam(required=false, value="yearReleased") Long yearReleased) {
+            @RequestParam(required=false, value="yearReleased") Long yearReleased,
+            @RequestParam(required=false, value="artist") String artist) {
 
-        if("genre".equalsIgnoreCase(searchBy)) {
+        if ("genre".equalsIgnoreCase(searchBy)) {
             return getAlbumsByGenre(genre);
 
         } else if ("yearReleased".equalsIgnoreCase(searchBy)) {
             return getAlbumsByYearReleased(yearReleased);
 
+        } else if ("artist".equalsIgnoreCase(searchBy)) {
+            return getAlbumsByArtist(artist);
         } else {
             //System.out.println("No search method defined. Return all albums??");
             return getAllAlbums();
         }
+    }
+
+    private ResponseEntity<List<Album>> getAlbumsByArtist(String artist) {
+        List<Album> albums = albumManagerService.getAlbumsByArtist(artist);
+
+        return new ResponseEntity<>(albums, HttpStatus.OK);
     }
 
     public ResponseEntity<List<Album>> getAlbumsByGenre(String genre) {
@@ -97,5 +97,15 @@ public class AlbumManagerController {
 
         return new ResponseEntity<>(albums, HttpStatus.OK);
     }
+
+    /*
+    @GetMapping("/albums")
+    public ResponseEntity<List<Album>> getAlbumsByGenre(@RequestParam(value="genre") String genre) {
+        List<Album> albums = albumManagerService.getAlbumsByGenre(genre);
+
+        return new ResponseEntity<>(albums, HttpStatus.OK);
+    }
+
+ */
 
 }

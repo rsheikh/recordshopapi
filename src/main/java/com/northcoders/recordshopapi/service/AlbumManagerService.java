@@ -19,4 +19,6 @@ public interface AlbumManagerService {
     List<Album> getAlbumsByGenre(String genre);
 
     List<Album> getAlbumsByYearReleased(Long yearReleased);
+
+    List<Album> getAlbumsByArtist(String artist);
 }
