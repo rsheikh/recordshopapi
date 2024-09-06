@@ -5,9 +5,11 @@ import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.model.Genre;
 import com.northcoders.recordshopapi.model.Stock;
 import com.northcoders.recordshopapi.service.AlbumManagerServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -61,6 +63,9 @@ class AlbumManagerControllerTest {
         albumList.add(new Album(8L, "Michael Jackson", "Thriller", 1982L, Genre.POP, stock.get(7)));
         albumList.add(new Album(9L, "Ludovico Einaudi", "Una Mattina", 2004L, Genre.CLASSIC, stock.get(8)));
         albumList.add(new Album(10L, "Blake Shelton", "Red River Blue", 2004L, Genre.COUNTRY, stock.get(9)));
+        albumList.add(new Album(11L, "Blake Shelton", "Red River Blue 2", 2008L, Genre.COUNTRY, stock.get(10)));
+        albumList.add(new Album(12L, "Sia", "1000 Forms of Fear", 2014L, Genre.POP, stock.get(11)));
+
 
         return albumList;
     }
@@ -77,6 +82,8 @@ class AlbumManagerControllerTest {
         stockList.add(new Stock(8L, 25L));
         stockList.add(new Stock(9L, 30L));
         stockList.add(new Stock(10L, 35L));
+        stockList.add(new Stock(11L, 16L));
+        stockList.add(new Stock(12L, 22L));
 
         return stockList;
 
@@ -92,7 +99,7 @@ class AlbumManagerControllerTest {
 
         this.mockMvcController.perform(
                 MockMvcRequestBuilders.get("/api/v1/recordshop"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].artist").value("Def Leppard"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].albumName").value("Hysteria"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].yearReleased").value(1987L))
@@ -118,7 +125,7 @@ class AlbumManagerControllerTest {
                         MockMvcRequestBuilders.post("/api/v1/recordshop/")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(mapper.writeValueAsString(album)))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                .andExpect(status().isCreated());
 
         verify(mockAlbumManagerServiceImpl, times(1)).insertAlbum(album);
     }
@@ -127,17 +134,37 @@ class AlbumManagerControllerTest {
     @DisplayName("Test retrieval of album by Id")
     void testGetAlbumById() throws Exception {
 
-        Optional<Album> album = Optional.of(new Album(12L, "Sia", "1000 Forms of Fear", 2014L, Genre.POP, new Stock(12L, 44L) ));
+        Album album = new Album(12L, "Sia", "1000 Forms of Fear", 2014L, Genre.POP, new Stock(12L, 44L));
 
         when(mockAlbumManagerServiceImpl.getAlbumById(12L)).thenReturn(album);
 
         this.mockMvcController.perform(
                 MockMvcRequestBuilders.get("/api/v1/recordshop/12"))
-                .andExpect(MockMvcResultMatchers.status().isFound())
+                .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.artist").value("Sia"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.albumName").value("1000 Forms of Fear"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.yearReleased").value(2014L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value("POP"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.stockId.quantityInStock").value(44L));
+    }
+
+    @Test
+    @DisplayName("Test update of an album by a given Id")
+    public void testUpdateAlbumById() throws Exception {
+        Album album = new Album(12L,  "Sia", "1000 Forms of Fear", 2004L, Genre.POP, new Stock(12L, 2L));
+        Album albumOfNewValues = new Album(12L, "Formerly Sia", "1001 Forms of Fear", 2014L, Genre.POP, new Stock(12L, 99L));
+
+        Long id = 12L;
+
+        when(mockAlbumManagerServiceImpl.updateAlbumById(album, albumOfNewValues)).thenReturn(albumOfNewValues);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.put("/api/v1/recordshop/{id}", id)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(albumOfNewValues)))
+                .andExpect(status().isOk());
+
+        Assertions.assertEquals(albumOfNewValues.getAlbumName(), "1001 Forms of Fear");
+        Assertions.assertEquals(albumOfNewValues.getAlbumId(), id);
     }
 }
