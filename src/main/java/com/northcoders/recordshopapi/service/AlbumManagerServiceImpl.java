@@ -35,13 +35,6 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public Album updateAlbumById(Album albumToUpdate, Album albumFromUrl) {
-
-//        Album> albumToUpdate = Optional.ofNullable(albumManagerService.getAlbumById(albumId)
-//                .orElseThrow(() -> new ItemNotFoundException("Album with id: " + albumId + " does not exist.")));
-
-//        if(albumToUpdate.isPresent()) {
-//            album = albumManagerService.updateAlbumById(albumToUpdate, albumFromUrl);
-//        }
         albumToUpdate.setAlbumName(albumFromUrl.getAlbumName());
         albumToUpdate.setArtist(albumFromUrl.getArtist());
         albumToUpdate.setYearReleased(albumFromUrl.getYearReleased());
@@ -49,5 +42,10 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         albumToUpdate.getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
 
         return albumManagerRepository.save(albumToUpdate);
+    }
+
+    @Override
+    public void deleteAlbumById(Long albumId) {
+        albumManagerRepository.deleteById(albumId);
     }
 }

@@ -52,8 +52,13 @@ public class AlbumManagerController {
         httpHeaders.add("successMessage", updatedAlbum + " updated successfully.");
 
         return new ResponseEntity<>(updatedAlbum, httpHeaders, HttpStatus.OK);
-
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAlbumById(@PathVariable("id") Long albumId) {
+        albumManagerService.deleteAlbumById(albumId);
+
+        return new ResponseEntity<>("Album deleted", HttpStatus.OK);
+    }
 
 }

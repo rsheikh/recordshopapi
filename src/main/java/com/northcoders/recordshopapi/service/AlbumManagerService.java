@@ -13,4 +13,6 @@ public interface AlbumManagerService {
     Album getAlbumById(Long albumId);
 
     Album updateAlbumById(Album albumToUpdate, Album albumFromUrl);
+
+    void deleteAlbumById(Long albumId);
 }
