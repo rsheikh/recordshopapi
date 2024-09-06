@@ -34,7 +34,6 @@ public class AlbumManagerController {
     @GetMapping("/{id}")
     public ResponseEntity<Album> getAlbumById(@PathVariable("id") Long albumId) {
         Album album = albumManagerService.getAlbumById(albumId);
-        System.out.println("Album: " + album);
 
         return new ResponseEntity<>(album, HttpStatus.FOUND);
     }
@@ -57,6 +56,13 @@ public class AlbumManagerController {
         albumManagerService.deleteAlbumById(albumId);
 
         return new ResponseEntity<>("Album deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/album/{albumName}")
+    public ResponseEntity<Album> getAlbumByAlbumName(@PathVariable("albumName") String albumName) {
+        Album album = albumManagerService.getAlbumByAlbumName(albumName);
+
+        return new ResponseEntity<>(album, HttpStatus.FOUND);
     }
 
     @GetMapping("/albums")

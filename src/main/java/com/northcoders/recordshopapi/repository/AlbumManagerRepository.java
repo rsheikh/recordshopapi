@@ -16,4 +16,5 @@ public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
     List<Album> findByArtistContaining(String artist);
 
+    Album findByAlbumName(String albumName);
 }
