@@ -10,11 +10,20 @@ public enum Genre {
     HIPHOP("Hip-Hop"),
     POP("Pop"),
     COUNTRY("Country"),
-    CLASSIC("Classic");
+    CLASSIC("Classic"),
+    NOT_SPECIFIED("Not specified");
 
     String genreDescription;
 
     Genre(String description) {
         this.genreDescription = description;
+    }
+
+    public static Genre parseGenre(String input){
+        try {
+            return Genre.valueOf(input);
+        } catch (IllegalArgumentException e) {
+            return Genre.NOT_SPECIFIED;
+        }
     }
 }

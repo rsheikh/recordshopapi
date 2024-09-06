@@ -15,4 +15,6 @@ public interface AlbumManagerService {
     Album updateAlbumById(Album albumToUpdate, Album albumFromUrl);
 
     void deleteAlbumById(Long albumId);
+
+    List<Album> getAlbumsByGenre(String genre);
 }

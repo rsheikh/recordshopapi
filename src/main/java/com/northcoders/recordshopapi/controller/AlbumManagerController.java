@@ -1,6 +1,5 @@
 package com.northcoders.recordshopapi.controller;
 
-import com.northcoders.recordshopapi.exception.ItemNotFoundException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.service.AlbumManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/recordshop")
@@ -59,6 +57,13 @@ public class AlbumManagerController {
         albumManagerService.deleteAlbumById(albumId);
 
         return new ResponseEntity<>("Album deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/albums")
+    public ResponseEntity<List<Album>> getAlbumsByGenre(@RequestParam(value="genre") String genre) {
+        List<Album> albums = albumManagerService.getAlbumsByGenre(genre);
+
+        return new ResponseEntity<>(albums, HttpStatus.OK);
     }
 
 }

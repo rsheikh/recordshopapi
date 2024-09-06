@@ -1,6 +1,7 @@
 package com.northcoders.recordshopapi.service;
 
 import com.northcoders.recordshopapi.model.Album;
+import com.northcoders.recordshopapi.model.Genre;
 import com.northcoders.recordshopapi.repository.AlbumManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,12 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     @Override
     public void deleteAlbumById(Long albumId) {
         albumManagerRepository.deleteById(albumId);
+    }
+
+    @Override
+    public List<Album> getAlbumsByGenre(String genre) {
+        Genre genreToSearch = Genre.parseGenre((genre));
+
+        return albumManagerRepository.findAlbumsByGenre(genreToSearch);
     }
 }
