@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -166,5 +167,18 @@ class AlbumManagerControllerTest {
 
         Assertions.assertEquals(albumOfNewValues.getAlbumName(), "1001 Forms of Fear");
         Assertions.assertEquals(albumOfNewValues.getAlbumId(), id);
+    }
+
+    @Test
+    @DisplayName("Test delete of album by a given Id")
+    public void testDeleteAlbumById() throws Exception {
+        Long id = 12L;
+
+        Album album = new Album(12L,  "Sia", "1000 Forms of Fear", 2004L, Genre.POP, new Stock(12L, 2L));
+
+        this.mockMvcController.perform(
+                MockMvcRequestBuilders.delete("/api/v1/recordshop/{id}", id))
+                .andExpect(status().isOk());
+
     }
 }
