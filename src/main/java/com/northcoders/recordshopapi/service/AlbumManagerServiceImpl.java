@@ -39,7 +39,8 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         albumToUpdate.setArtist(albumFromUrl.getArtist());
         albumToUpdate.setYearReleased(albumFromUrl.getYearReleased());
         albumToUpdate.setGenre(albumFromUrl.getGenre());
-        albumToUpdate.getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
+        albumToUpdate.setStockId(albumFromUrl.getStockId());
+        //albumToUpdate.getStockId().setQuantityInStock(albumFromUrl.getStockId().getStockId());
 
         return albumManagerRepository.save(albumToUpdate);
     }
