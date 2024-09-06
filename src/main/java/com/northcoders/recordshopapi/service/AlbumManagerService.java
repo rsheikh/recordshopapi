@@ -17,4 +17,6 @@ public interface AlbumManagerService {
     void deleteAlbumById(Long albumId);
 
     List<Album> getAlbumsByGenre(String genre);
+
+    List<Album> getAlbumsByYearReleased(Long yearReleased);
 }

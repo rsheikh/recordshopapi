@@ -57,4 +57,10 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
         return albumManagerRepository.findAlbumsByGenre(genreToSearch);
     }
+
+    @Override
+    public List<Album> getAlbumsByYearReleased(Long yearReleased) {
+
+        return albumManagerRepository.findAlbumsByYearReleased(yearReleased);
+    }
 }
