@@ -69,6 +69,6 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public Album getAlbumByAlbumName(String albumName) {
-        return albumManagerRepository.findByAlbumNameIgnoreCase(albumName);
+        return albumManagerRepository.findByAlbumNameContainingIgnoreCase(albumName);
     }
 }

@@ -16,7 +16,7 @@ public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
     List<Album> findByArtistContainingIgnoreCase(String artist);
 
-    Album findByAlbumNameIgnoreCase(String albumName);
+    Album findByAlbumNameContainingIgnoreCase(String albumName);
 
     //TODO Add method to handle partial albumName match
     //TODO Implement corresponding unit tests
