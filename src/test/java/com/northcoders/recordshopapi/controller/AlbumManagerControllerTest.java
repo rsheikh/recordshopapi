@@ -24,8 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,7 +88,14 @@ class AlbumManagerControllerTest {
         stockList.add(new Stock(12L, 22L));
 
         return stockList;
+    }
 
+    public List<Album> populatePartialAlbumList() {
+        List<Album> matchedAlbums = albumList = new ArrayList<>(List.of(
+                new Album(1L, "Def Leppard", "Hysteria", 1987L, Genre.ROCK, new Stock(1L, 20L)),
+                new Album(2L, "Def Leppard", "Adrenalize", 1992L, Genre.ROCK, new Stock(2L, 25L))
+        ));
+        return matchedAlbums;
     }
 
     @Test
@@ -186,12 +193,7 @@ class AlbumManagerControllerTest {
     @Test
     @DisplayName("Test retrieval of artist by partial match")
     public void testRetrieveAlbumsByArtistPartiallyMatched() throws Exception {
-        List<Album> albums = populateAlbums(populateStock());
-        List<Album> matchedAlbums = albumList = new ArrayList<>(List.of(
-            new Album(1L, "Def Leppard", "Hysteria", 1987L, Genre.ROCK, new Stock(1L, 20L)),
-            new Album(2L, "Def Leppard", "Adrenalize", 1992L, Genre.ROCK, new Stock(2L, 25L))
-        ));
-
+        List<Album> matchedAlbums = populatePartialAlbumList();
         String artistSubstring = "epp";//for Def Leppard
 
         when(mockAlbumManagerServiceImpl.getAlbumsByArtist(artistSubstring)).thenReturn(matchedAlbums);
@@ -200,9 +202,25 @@ class AlbumManagerControllerTest {
                         MockMvcRequestBuilders.get("/api/v1/recordshop/album/{artist}", artistSubstring))
                 .andExpect(status().isFound());
 
-//        assertThat(matchedAlbums.getFirst().getArtist().matches(artist));
-        System.out.println("1: Artist " + matchedAlbums.getFirst().getArtist() + " matches " + artistSubstring);
-        assertThat(matchedAlbums.getFirst().getArtist().contains(artistSubstring));
+        assertTrue(matchedAlbums.getFirst().getArtist().contains(artistSubstring));
+    }
+
+    @Test
+    @DisplayName("Test retrieval of album ignoring case-sensitivity")
+    public void testRetrieveAlbumByAlbumNameIgnoringCase() throws Exception {
+        Album matchedAlbum = new Album(1L, "Guns N' Roses", "Appetite for Destruction", 1987L, Genre.ROCK, new Stock(1L, 45L));
+        String albumNameSubstring = "deSTrucTioN";//for Guns N'Roses
+
+        when(mockAlbumManagerServiceImpl.getAlbumByAlbumName(albumNameSubstring)).thenReturn(matchedAlbum);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/recordshop/album/{albumName}", albumNameSubstring))
+                .andExpect(status().isFound());
+
+        assertTrue(matchedAlbum.getAlbumName().contains("Destruction"));
+        //assertTrue(matchedAlbum.getAlbumName().equalsIgnoreCase(contains(albumNameSubstring)));
+        assertTrue(Pattern.compile(Pattern.quote("deSTrucTioN"), Pattern.CASE_INSENSITIVE).matcher(matchedAlbum.getAlbumName()).find());
+        assertFalse(matchedAlbum.getAlbumName().contains("Dandelions"));
     }
 
 }
