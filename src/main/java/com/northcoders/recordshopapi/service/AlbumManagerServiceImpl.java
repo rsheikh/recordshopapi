@@ -64,11 +64,11 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public List<Album> getAlbumsByArtist(String artist) {
-        return albumManagerRepository.findByArtistContaining(artist);
+        return albumManagerRepository.findByArtistContainingIgnoreCase(artist);
     }
 
     @Override
     public Album getAlbumByAlbumName(String albumName) {
-        return albumManagerRepository.findByAlbumName(albumName);
+        return albumManagerRepository.findByAlbumNameIgnoreCase(albumName);
     }
 }

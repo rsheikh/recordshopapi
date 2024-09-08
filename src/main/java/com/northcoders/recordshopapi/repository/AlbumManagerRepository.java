@@ -14,11 +14,10 @@ public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
     List<Album> findAlbumsByYearReleased(Long yearReleased);
 
-    List<Album> findByArtistContaining(String artist);
+    List<Album> findByArtistContainingIgnoreCase(String artist);
 
-    Album findByAlbumName(String albumName);
+    Album findByAlbumNameIgnoreCase(String albumName);
 
-    //TODO Implement handling case-insensitivity when checking repo for albumName
     //TODO Add method to handle partial albumName match
     //TODO Implement corresponding unit tests
 }
