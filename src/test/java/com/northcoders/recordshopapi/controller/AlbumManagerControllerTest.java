@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.*;
@@ -181,4 +182,27 @@ class AlbumManagerControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    @DisplayName("Test retrieval of artist by partial match")
+    public void testRetrieveAlbumsByArtistPartiallyMatched() throws Exception {
+        List<Album> albums = populateAlbums(populateStock());
+        List<Album> matchedAlbums = albumList = new ArrayList<>(List.of(
+            new Album(1L, "Def Leppard", "Hysteria", 1987L, Genre.ROCK, new Stock(1L, 20L)),
+            new Album(2L, "Def Leppard", "Adrenalize", 1992L, Genre.ROCK, new Stock(2L, 25L))
+        ));
+
+        String artistSubstring = "epp";//for Def Leppard
+
+        when(mockAlbumManagerServiceImpl.getAlbumsByArtist(artistSubstring)).thenReturn(matchedAlbums);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/recordshop/album/{artist}", artistSubstring))
+                .andExpect(status().isFound());
+
+//        assertThat(matchedAlbums.getFirst().getArtist().matches(artist));
+        System.out.println("1: Artist " + matchedAlbums.getFirst().getArtist() + " matches " + artistSubstring);
+        assertThat(matchedAlbums.getFirst().getArtist().contains(artistSubstring));
+    }
+
 }
