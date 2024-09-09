@@ -21,5 +21,5 @@ public interface AlbumManagerService {
 
     List<Album> getAlbumsByArtist(String artist);
 
-    Album getAlbumByAlbumName(String albumName);
+    List<Album> getAlbumByAlbumName(String albumName);
 }

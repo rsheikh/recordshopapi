@@ -59,10 +59,10 @@ public class AlbumManagerController {
     }
 
     @GetMapping("/album/{albumName}")
-    public ResponseEntity<Album> getAlbumByAlbumName(@PathVariable("albumName") String albumName) {
-        Album album = albumManagerService.getAlbumByAlbumName(albumName);
+    public ResponseEntity<List<Album>> getAlbumByAlbumName(@PathVariable("albumName") String albumName) {
+        List<Album> albums = albumManagerService.getAlbumByAlbumName(albumName);
 
-        return new ResponseEntity<>(album, HttpStatus.FOUND);
+        return new ResponseEntity<>(albums, HttpStatus.FOUND);
     }
 
     @GetMapping("/albums")
