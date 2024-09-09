@@ -42,4 +42,19 @@ class AlbumManagerServiceImplTest {
             assertThat(infe).hasMessageContaining(errMsg);
         }
     }
+
+    @Test
+    @DisplayName("Return an Item Not Found error msg when trying to find album with an invalid Id.")
+    public void testUpdateAlbumByIdReturnsErrorMsg() {
+
+        Album album = new Album(12L, "Sia", "1000 Forms of Fear", 2014L, Genre.POP, new Stock(12L, 44L));
+        String errMsg = "Album with id '25' cannot be found to be updated";
+
+        // We have a test double for the BookManagerRepository. This is a stub
+        try {
+            albumManagerServiceImpl.updateAlbumById(25L, album);
+        } catch (ItemNotFoundException infe) {
+            assertThat(infe).hasMessageContaining(errMsg);
+        }
+    }
 }
