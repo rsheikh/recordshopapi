@@ -211,7 +211,7 @@ class AlbumManagerControllerTest {
         Album matchedAlbum = new Album(1L, "Guns N' Roses", "Appetite for Destruction", 1987L, Genre.ROCK, new Stock(1L, 45L));
         String albumNameSubstring = "deSTrucTioN";//for Guns N'Roses
 
-        when(mockAlbumManagerServiceImpl.getAlbumByAlbumName(albumNameSubstring)).thenReturn(matchedAlbum);
+        when(mockAlbumManagerServiceImpl.getAlbumByAlbumName(albumNameSubstring)).thenReturn(List.of(matchedAlbum));
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.get("/api/v1/recordshop/album/{albumName}", albumNameSubstring))
