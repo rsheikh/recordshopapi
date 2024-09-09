@@ -1,5 +1,6 @@
 package com.northcoders.recordshopapi.service;
 
+import com.northcoders.recordshopapi.exception.ItemNotFoundException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.model.Genre;
 import com.northcoders.recordshopapi.repository.AlbumManagerRepository;
@@ -31,7 +32,12 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public Album getAlbumById(Long albumId) {
-        return albumManagerRepository.findById(albumId).get();
+        Optional<Album> album = albumManagerRepository.findById(albumId);
+        if(album.isPresent()) {
+            return album.get();
+        } else {
+            throw new ItemNotFoundException(String.format("Record with id '%s' cannot be found", albumId));
+        }
     }
 
     @Override
