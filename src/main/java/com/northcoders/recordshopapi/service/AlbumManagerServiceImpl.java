@@ -41,14 +41,21 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     }
 
     @Override
-    public Album updateAlbumById(Album albumToUpdate, Album albumFromUrl) {
-        albumToUpdate.setAlbumName(albumFromUrl.getAlbumName());
-        albumToUpdate.setArtist(albumFromUrl.getArtist());
-        albumToUpdate.setYearReleased(albumFromUrl.getYearReleased());
-        albumToUpdate.setGenre(albumFromUrl.getGenre());
-        albumToUpdate.setStockId(albumFromUrl.getStockId());
+    public Album updateAlbumById(Long albumId, Album albumFromUrl) {
+        Optional<Album> album = albumManagerRepository.findById(albumId);
 
-        return albumManagerRepository.save(albumToUpdate);
+        Album albumToUpdate;
+        if(album.isPresent()) {
+            albumToUpdate = album.get();
+
+            albumToUpdate.setAlbumName(albumFromUrl.getAlbumName());
+            albumToUpdate.setArtist(albumFromUrl.getArtist());
+            albumToUpdate.setGenre(albumFromUrl.getGenre());
+            albumToUpdate = albumManagerRepository.save(albumToUpdate);
+            return albumToUpdate;
+        } else {
+            throw new ItemNotFoundException(String.format("Album with id '%s' cannot be found to be updated", albumId));
+        }
     }
 
     @Override

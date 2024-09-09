@@ -38,18 +38,25 @@ public class AlbumManagerController {
         return new ResponseEntity<>(album, HttpStatus.FOUND);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Album> updateAlbumById(@RequestBody Album albumFromUrl, @PathVariable("id") Long albumId) {
-
-        Album album = getAlbumById(albumId).getBody();
-        Album updatedAlbum = albumManagerService.updateAlbumById(album, albumFromUrl);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("album", "/api/v1/recordshop/" + updatedAlbum.getAlbumId().toString());
-        httpHeaders.add("successMessage", updatedAlbum + " updated successfully.");
-
-        return new ResponseEntity<>(updatedAlbum, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(albumManagerService.updateAlbumById(albumId, albumFromUrl), HttpStatus.OK);
     }
+
+//    @PutMapping("/{id}")
+//    @ResponseBody
+//    public ResponseEntity<Album> updateAlbumById(@RequestBody Album albumFromUrl, @PathVariable("id") Long albumId) {
+//
+////        Album album = getAlbumById(albumId).getBody();
+////        Album updatedAlbum = albumManagerService.updateAlbumById(album, albumFromUrl);
+//        Album updatedAlbum = albumManagerService.updateAlbumById(albumId, albumFromUrl);
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.add("album", "/api/v1/recordshop/" + updatedAlbum.getAlbumId().toString());
+//        httpHeaders.add("successMessage", updatedAlbum + " updated successfully.");
+//
+//        return new ResponseEntity<>(updatedAlbum, httpHeaders, HttpStatus.OK);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAlbumById(@PathVariable("id") Long albumId) {
