@@ -165,7 +165,7 @@ class AlbumManagerControllerTest {
 
         Long id = 12L;
 
-        when(mockAlbumManagerServiceImpl.updateAlbumById(album, albumOfNewValues)).thenReturn(albumOfNewValues);
+        when(mockAlbumManagerServiceImpl.updateAlbumById(12L, albumOfNewValues)).thenReturn(albumOfNewValues);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.put("/api/v1/recordshop/{id}", id)
