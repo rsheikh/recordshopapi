@@ -1,5 +1,6 @@
 package com.northcoders.recordshopapi.controller;
 
+import com.northcoders.recordshopapi.exception.ParameterNotDefinedException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.service.AlbumManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +45,6 @@ public class AlbumManagerController {
         return new ResponseEntity<>(albumManagerService.updateAlbumById(albumId, albumFromUrl), HttpStatus.OK);
     }
 
-//    @PutMapping("/{id}")
-//    @ResponseBody
-//    public ResponseEntity<Album> updateAlbumById(@RequestBody Album albumFromUrl, @PathVariable("id") Long albumId) {
-//
-////        Album album = getAlbumById(albumId).getBody();
-////        Album updatedAlbum = albumManagerService.updateAlbumById(album, albumFromUrl);
-//        Album updatedAlbum = albumManagerService.updateAlbumById(albumId, albumFromUrl);
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.add("album", "/api/v1/recordshop/" + updatedAlbum.getAlbumId().toString());
-//        httpHeaders.add("successMessage", updatedAlbum + " updated successfully.");
-//
-//        return new ResponseEntity<>(updatedAlbum, httpHeaders, HttpStatus.OK);
-//    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAlbumById(@PathVariable("id") Long albumId) {
         albumManagerService.deleteAlbumById(albumId);
@@ -74,10 +61,14 @@ public class AlbumManagerController {
 
     @GetMapping("/albums")
     public ResponseEntity<List<Album>> getAlbumsBy(
-            @RequestParam(required=false, value="searchBy") String searchBy,
+            @RequestParam(value="searchBy") String searchBy,
             @RequestParam(required=false, value="genre") String genre,
             @RequestParam(required=false, value="yearReleased") Long yearReleased,
             @RequestParam(required=false, value="artist") String artist) {
+
+        if(genre == null && artist == null && yearReleased == null) {
+            throw new ParameterNotDefinedException("Please enter a value in the corresponding searchBy field.");
+        }
 
         if ("genre".equalsIgnoreCase(searchBy)) {
             return getAlbumsByGenre(genre);
@@ -87,9 +78,9 @@ public class AlbumManagerController {
 
         } else if ("artist".equalsIgnoreCase(searchBy)) {
             return getAlbumsByArtist(artist);
+
         } else {
-            //System.out.println("No search method defined. Return all albums??");
-            return getAllAlbums();
+            throw new ParameterNotDefinedException(searchBy + " is not a valid searchBy parameter. You can search by genre, yearReleased or artist.");
         }
     }
 

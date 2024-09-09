@@ -13,4 +13,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleItemNotFoundException(ItemNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleParameterNotDefinedException(ParameterNotDefinedException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
