@@ -53,39 +53,39 @@
   > 
   > - Accepts an `id` parameter
   > - Returns: 
->   * Success: The retrieved album if the record exists
->   * Invalid Exception Thrown: Record with id `albumId` cannot be found
+  >   * Success: The retrieved album if the record exists
+  >   * Invalid Exception Thrown: Record with id `albumId` cannot be found
 
-> 🎸 `DELETE /api/v1/recordshop/{id}` - Delete an album by an album id
->
-> - Accepts an `id` parameter
-> - Returns:
->   * Success message: Album with id `albumId` has been deleted successfully
->   * Invalid message: Record with id `albumId` cannot be found to be deleted
+  > 🎸 `DELETE /api/v1/recordshop/{id}` - Delete an album by an album id
+  >
+  > - Accepts an `id` parameter
+  > - Returns:
+  >   * Success message: Album with id `albumId` has been deleted successfully
+  >   * Invalid message: Record with id `albumId` cannot be found to be deleted
 
-> 🎸 `PATCH /api/v1/recordshop/{id}` - Update an album's information
->
-> - Accepts an `id` parameter. Album information is added directly to the JSON object: <br/>
+  > 🎸 `PATCH /api/v1/recordshop/{id}` - Update an album's information
+  >
+  > - Accepts an `id` parameter. Album information is added directly to the JSON object: <br/>
     ```{ ```<br/>
     ``` "artist": "Guns N' Roses",```  <br/>
     ```   "albumName": "Use Your Illusion 2",  ``` <br/>
     ```    "yearReleased": 1991,  ``` <br/>
     ```   "genre": "ROCK"  ``` <br/>
     ```   } ```
-> - Returns:
->   * Success: The updated album
->   * Invalid Exception Thrown: Album with id `albumId` cannot be found to be updated
+  > - Returns:
+  >   * Success: The updated album
+  >   * Invalid Exception Thrown: Album with id `albumId` cannot be found to be updated
 
-> 🎸 `GET /api/v1/recordshop/albums` - Retrieve albums by Genre / Year Released / Artist
-> 
-> TODO
-> 
+  > 🎸 `GET /api/v1/recordshop/albums` - Retrieve albums by Genre / Year Released / Artist
+  > 
+  > TODO
+  > 
 
-> 
-> 🎸 `GET /api/v1/recordshop/album/{albumName}` - Retrieve an album by album name
->  
-> TODO
-> 
+  > 
+  > 🎸 `GET /api/v1/recordshop/album/{albumName}` - Retrieve an album by album name
+  >  
+  > TODO
+  > 
 
 ---
 
