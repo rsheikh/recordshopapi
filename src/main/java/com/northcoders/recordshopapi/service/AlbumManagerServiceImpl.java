@@ -3,6 +3,7 @@ package com.northcoders.recordshopapi.service;
 import com.northcoders.recordshopapi.exception.ItemNotFoundException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.model.Genre;
+import com.northcoders.recordshopapi.model.Stock;
 import com.northcoders.recordshopapi.repository.AlbumManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public Album insertAlbum(Album album) {
+        album.setStockId(new Stock(1L));
         return albumManagerRepository.save(album);
     }
 
@@ -59,8 +61,15 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     }
 
     @Override
-    public void deleteAlbumById(Long albumId) {
-        albumManagerRepository.deleteById(albumId);
+    public String deleteAlbumById(Long albumId) {
+        Optional<Album> album = albumManagerRepository.findById(albumId);
+        if(album.isPresent()) {
+            albumManagerRepository.deleteById(albumId);
+            return String.format("Album with id '%s' has been deleted successfully", albumId);
+        } else {
+            throw new ItemNotFoundException(String.format("Album with id '%s' cannot be found to be deleted", albumId));
+        }
+//        albumManagerRepository.deleteById(albumId);
     }
 
     @Override

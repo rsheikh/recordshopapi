@@ -1,10 +1,10 @@
 package com.northcoders.recordshopapi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.swing.text.DefaultHighlighter;
 
 @Entity
 @Data
@@ -21,4 +21,7 @@ public class Stock {
     @Column
     Long quantityInStock;
 
+    public Stock(Long quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
 }

@@ -27,7 +27,7 @@ public class Album {
     @Column
     String albumName;
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+//    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @Column
     Long yearReleased;
 
