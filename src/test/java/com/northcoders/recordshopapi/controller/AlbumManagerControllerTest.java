@@ -227,7 +227,7 @@ class AlbumManagerControllerTest {
     }
 
     /*
-    Can't test for this as JAva doesn't let me proceed if a variable is null. Moot test
+    Can't test for this as Java doesn't let me proceed if a variable is null. Moot test
     @Test
     @DisplayName("Throw an Exception when dependent searchBy query parameter is left blank for executing a filter")
     public void testUpdateAlbumByIdReturnsErrorMsg() throws Exception {
