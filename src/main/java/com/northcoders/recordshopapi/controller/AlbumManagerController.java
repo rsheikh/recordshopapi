@@ -4,6 +4,10 @@ import com.northcoders.recordshopapi.exception.ParameterNotDefinedException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.service.AlbumManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Configuration
+@EnableCaching
 @RestController
 @RequestMapping("/api/v1/recordshop")
 public class AlbumManagerController {
@@ -32,6 +38,7 @@ public class AlbumManagerController {
         return new ResponseEntity<>(newAlbum, httpHeaders, HttpStatus.CREATED);
     }
 
+    @Cacheable("albumsById")
     @GetMapping("/{id}")
     public ResponseEntity<Album> getAlbumById(@PathVariable("id") Long albumId) {
         Album album = albumManagerService.getAlbumById(albumId);
@@ -39,6 +46,7 @@ public class AlbumManagerController {
         return new ResponseEntity<>(album, HttpStatus.FOUND);
     }
 
+    @CacheEvict("albumsById")
     @PatchMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Album> updateAlbumById(@RequestBody Album albumFromUrl, @PathVariable("id") Long albumId) {
