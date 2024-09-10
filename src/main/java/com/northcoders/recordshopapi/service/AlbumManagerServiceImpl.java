@@ -69,7 +69,6 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         } else {
             throw new ItemNotFoundException(String.format("Album with id '%s' cannot be found to be deleted", albumId));
         }
-//        albumManagerRepository.deleteById(albumId);
     }
 
     @Override

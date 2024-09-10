@@ -56,4 +56,18 @@ class AlbumManagerServiceImplTest {
             assertThat(infe).hasMessageContaining(errMsg);
         }
     }
+
+    @Test
+    @DisplayName("Test that throws an exception with an Invalid Id ")
+    public void testDeleteAlbumByIdThrowsItemNotFoundException() {
+        Exception exception = assertThrows(ItemNotFoundException.class, () -> {
+            albumManagerServiceImpl.deleteAlbumById(999999999999999L);;
+        });
+
+        String expectedMessage = "Album with id '999999999999999' cannot be found to be deleted";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
 }
