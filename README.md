@@ -10,9 +10,9 @@
 ## "Step on in, where the vinyl spins—welcome to my groovy Record Shop!"
 ***
 
-### "An API to find your inner Rock star, vibe to Hip-Hop, belt a ballad, or pop out with a dash of Swifty swagger!" 🎸 
+### "An API to find your inner Rock star, vibe to Hip-Hop, belt a ballad, or pop out with a dash of Swifty swagger!" 
 
-🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤
+🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤
 
 ## Getting Started
 
@@ -49,10 +49,10 @@
   >   - Stock will implement its own endpoints to update the quantity in stock 
 
 
-> 🎸 `GET /api/v1/recordshop/{id}` - Retrieve an album by an album id
-> 
-> - Accepts an `id` parameter
-> - Returns: 
+  > 🎸 `GET /api/v1/recordshop/{id}` - Retrieve an album by an album id
+  > 
+  > - Accepts an `id` parameter
+  > - Returns: 
 >   * Success: The retrieved album if the record exists
 >   * Invalid Exception Thrown: Record with id `albumId` cannot be found
 
