@@ -1,6 +1,8 @@
 package com.northcoders.recordshopapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.northcoders.recordshopapi.exception.ItemNotFoundException;
+import com.northcoders.recordshopapi.exception.ParameterNotDefinedException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.model.Genre;
 import com.northcoders.recordshopapi.model.Stock;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.*;
@@ -222,5 +225,23 @@ class AlbumManagerControllerTest {
         assertTrue(Pattern.compile(Pattern.quote("deSTrucTioN"), Pattern.CASE_INSENSITIVE).matcher(matchedAlbum.getAlbumName()).find());
         assertFalse(matchedAlbum.getAlbumName().contains("Dandelions"));
     }
+
+    /*
+    Can't test for this as JAva doesn't let me proceed if a variable is null. Moot test
+    @Test
+    @DisplayName("Throw an Exception when dependent searchBy query parameter is left blank for executing a filter")
+    public void testUpdateAlbumByIdReturnsErrorMsg() throws Exception {
+
+        String errMsg = "Please enter a value in the corresponding searchBy field.";
+        String genre, artist, yearReleased = null;
+
+        try {
+            mockAlbumManagerServiceImpl.getAlbumsByGenre(null);
+        } catch (ParameterNotDefinedException pe) {
+            assertThat(pe).hasMessageContaining(errMsg);
+        }
+    }
+
+     */
 
 }

@@ -35,7 +35,7 @@ class AlbumManagerServiceImplTest {
         Album album = new Album(12L, "Sia", "1000 Forms of Fear", 2014L, Genre.POP, new Stock(12L, 44L));
         String errMsg = "Record with id '13' cannot be found";
 
-        // We have a test double for the BookManagerRepository. This is a stub
+        // We have a test double for the AlbumManagerRepository. This is a stub
         try {
             albumManagerServiceImpl.getAlbumById(13L);
         } catch (ItemNotFoundException infe) {
@@ -50,7 +50,6 @@ class AlbumManagerServiceImplTest {
         Album album = new Album(12L, "Sia", "1000 Forms of Fear", 2014L, Genre.POP, new Stock(12L, 44L));
         String errMsg = "Album with id '25' cannot be found to be updated";
 
-        // We have a test double for the BookManagerRepository. This is a stub
         try {
             albumManagerServiceImpl.updateAlbumById(25L, album);
         } catch (ItemNotFoundException infe) {
