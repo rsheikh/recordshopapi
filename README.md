@@ -44,8 +44,6 @@ No more Dream On, just Come as You Are, show a little Love and Affection and per
 
 ## Using the Swagger API
 
----
-
 * From here, you can run the following queries:
 
 
@@ -102,7 +100,7 @@ No more Dream On, just Come as You Are, show a little Love and Affection and per
   > - Accepts a `searchBy` string parameter. Acceptable options are `genre`, `yearReleased`, `artist`
   > - Based on the `searchBy` parameter, provide a search filter in the corresponding field, e.g to search by an artist: <br/>
   > <img src =src/main/resources/searchByArtist.png width="260" />  <br/>
-  > - Returns: All full and partial matches to query filter, or an empty list when no matches found
+  > - Returns: All full and partial matches to query filter, or an empty list when no matches are found
   > <br/><img src =src/main/resources/artistResult.png width="200" />
 
   
@@ -116,8 +114,6 @@ No more Dream On, just Come as You Are, show a little Love and Affection and per
 
 
 ## 🧰 Tech Stack
-
----
 
 ##### Built with The Spring Boot Framework
 
