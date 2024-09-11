@@ -48,10 +48,10 @@ No more Dream On, just Come as You Are, show a little Love and Affection and per
 * From here, you can run the following queries:
 
 
-   > 🎸 `GET /api/v1/recordshop` - Get all albums
+   > 🎸 `GET /api/v1/recordshop` - Get all albums in stock
    >
    > - Accepts no parameters
-   > - Returns a list of all the albums held in the database
+   > - Returns a list of all the albums that are in stock
 
 
   > 🎸 `POST /api/v1/recordshop` - Add a new album
@@ -99,7 +99,8 @@ No more Dream On, just Come as You Are, show a little Love and Affection and per
   > 
   > There are 3 individual queries you can search by here: Genre, the release year of the album and the artist
   > - Accepts a `searchBy` string parameter. Acceptable options are `genre`, `yearReleased`, `artist`
-  > - Based on the `searchBy` parameter, provide a search filter in the corresponding field, e.g to search by an artist: <br/>
+  > - Based on the `searchBy` parameter, provide a search filter in the corresponding field, e.g to search by an artist:
+  >
   > <img src =src/main/resources/searchByArtist.png width="260" />  <br/>
   > - Returns: All full and partial matches to query filter, or an empty list when no matches are found
   > <br/><img src =src/main/resources/artistResult.png width="200" />
@@ -113,16 +114,24 @@ No more Dream On, just Come as You Are, show a little Love and Affection and per
   >   * Invalid Exception message: No albums found that match album name of `<albumName>`
 
 
+## Further Development
 
-## 🧰 Tech Stack
+* Integration of a front-end GUI
+* Implementation of OAuth2 security access and authorisation
+* Implementation of transactional methods allowing update of stock by purchase/return of an album
+* Separation of artists to their own class, associated to albums
+* Implementation of publisher and song list classes for a fully normalised database
 
-##### Built with The Spring Boot Framework
+
+## Tech Stack
+
+##### Developed with The Spring Boot Framework
 
 * #### Dependency Management - Maven
 * #### Testing - JUnit, Mockito
 * #### RESTful API testing and documentation - Swagger UI, Postman
 * #### Database - PostGres, PGAdmin4, H2
 * #### IDE - IntelliJ
-* #### Cloud Deployment - AWS, Docker
+* #### Cloud Deployment and Containerisation - AWS, Docker, Elastic Beanstalk
 ---
 ###### Author - Rehana S.
