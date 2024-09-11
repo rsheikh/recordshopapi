@@ -90,6 +90,11 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public List<Album> getAlbumByAlbumName(String albumName) {
-        return albumManagerRepository.findByAlbumNameContainingIgnoreCase(albumName);
+        List<Album> albumList = albumManagerRepository.findByAlbumNameContainingIgnoreCase(albumName);
+        if(!albumList.isEmpty()) {
+            return albumList;
+        } else {
+            throw new ItemNotFoundException(String.format("No albums found that match album name of '%s'", albumName));
+        }
     }
 }
