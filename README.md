@@ -3,12 +3,13 @@
 ***
 
 # **Welcome to the Record Shop API**
+<p align="center">
+  <img src =src/main/resources/RecordShopLogo.jpg width="200" />
 
-
-![alt text](src/main/resources/RecordShopLogo.jpg)
 
 ## "Step on in, where the vinyl spins—welcome to my groovy Record Shop!"
 ***
+</p>
 
 ### "An API to find your inner Rock star, vibe to Hip-Hop, belt a ballad, or pop out with a dash of Swifty swagger!" 
 
