@@ -17,15 +17,11 @@
 
 ## Project Overview
 
----
-
 Mick Jagger has now retired and has his own record shop. However, he appreciates it's time to move [like himself] with 
 the times and bring his pen and paper inventory system to the modern age by computerising his inventory system.
 No more Dream On, just Come as You Are, show a little Love and Affection and peruse through the API.
 
 ## Getting Started
-
----
 
 
 * Download the code onto your machine by running the following command:
@@ -105,7 +101,7 @@ No more Dream On, just Come as You Are, show a little Love and Affection and per
   > There are 3 individual queries you can search by here: Genre, the release year of the album and the artist
   > - Accepts a `searchBy` string parameter. Acceptable options are `genre`, `yearReleased`, `artist`
   > - Based on the `searchBy` parameter, provide a search filter in the corresponding field, e.g to search by an artist: <br/>
-  > <img src =src/main/resources/searchByArtist.png width="260" />  
+  > <img src =src/main/resources/searchByArtist.png width="260" />  <br/>
   > - Returns: All full and partial matches to query filter, or an empty list when no matches found
   > <br/><img src =src/main/resources/artistResult.png width="200" />
 
