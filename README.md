@@ -12,21 +12,45 @@
 
 ### "An API to find your inner Rock star, vibe to Hip-Hop, belt a ballad, or pop out with a dash of Swifty swagger!" 
 
-🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤
+🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤🎤
+
+
+## Project Overview
+
+---
+
+Mick Jagger has now retired and has his own record shop. However, he appreciates it's time to move [like himself] with 
+the times and bring his pen and paper inventory system to the modern age by computerising his inventory system.
+No more Dream On, just Come as You Are, show a little Love and Affection and peruse through the API.
 
 ## Getting Started
 
-* Download the code onto your machine from this repo.
+---
 
 
-* Open the project in your preferred IDE and run the `RecordshopapiApplication` class.
+* Download the code onto your machine by running the following command:
+  
+        git clone https://github.com/rsheikh/recordshopapi
 
 
-* In your favourite browser (we like Chrome), type:
+* Change to the `recordshopapi` directory and build the project
 
-`http://localhost:8080/api/v1/recordshopapi/swagger-ui/index.html#/`
 
-* This will open the Record Shop API using Swagger. From here, you can run the following queries:
+* Open the project in your preferred IDE (we like IntelliJ) and run the `RecordshopapiApplication` class.
+
+
+* In your favourite browse, type the following:
+
+        http://<server:port>/api/v1/recordshopapi/swagger-ui/index.html#/
+
+* This will open the Record Shop API using Swagger. 
+
+
+## Using the Swagger API
+
+---
+
+* From here, you can run the following queries:
 
 
    > 🎸 `GET /api/v1/recordshop` - Get all albums
@@ -54,14 +78,14 @@
   > - Accepts an `id` parameter
   > - Returns: 
   >   * Success: The retrieved album if the record exists
-  >   * Invalid Exception Thrown: Record with id `albumId` cannot be found
+  >   * Invalid Exception message: Record with id `<albumId>` cannot be found
 
   > 🎸 `DELETE /api/v1/recordshop/{id}` - Delete an album by an album id
   >
   > - Accepts an `id` parameter
   > - Returns:
   >   * Success message: Album with id `albumId` has been deleted successfully
-  >   * Invalid message: Record with id `albumId` cannot be found to be deleted
+  >   * Invalid Exception message: Record with id `<albumId>` cannot be found to be deleted
 
   > 🎸 `PATCH /api/v1/recordshop/{id}` - Update an album's information
   >
@@ -74,23 +98,31 @@
     ```   } ```
   > - Returns:
   >   * Success: The updated album
-  >   * Invalid Exception Thrown: Album with id `albumId` cannot be found to be updated
+  >   * Invalid Exception message: Album with id `<albumId>` cannot be found to be updated
 
   > 🎸 `GET /api/v1/recordshop/albums` - Retrieve albums by Genre / Year Released / Artist
   > 
-  > TODO
-  > 
+  > There are 3 individual queries you can search by here: Genre, the release year of the album and the artist
+  > - Accepts a `searchBy` string parameter. Acceptable options are `genre`, `yearReleased`, `artist`
+  > - Based on the `searchBy` parameter, provide a search filter in the corresponding field, e.g to search by an artist: <br/>
+  > <img src =src/main/resources/searchByArtist.png width="260" />  
+  > - Returns: All full and partial matches to query filter, or an empty list when no matches found
+  > <br/><img src =src/main/resources/artistResult.png width="200" />
 
-  > 
+  
   > 🎸 `GET /api/v1/recordshop/album/{albumName}` - Retrieve an album by album name
-  >  
-  > TODO
-  > 
+  >
+  > - Accepts an `albumName` parameter
+  > - Returns:
+  >   * Success: The retrieved album or albums for any full or partial case-insensitive matches
+  >   * Invalid Exception message: No albums found that match album name of `<albumName>`
+
+
+
+## 🧰 Tech Stack
 
 ---
 
-
-### 🧰 Tech Stack
 ##### Built with The Spring Boot Framework
 
 * #### Dependency Management - Maven
@@ -98,5 +130,6 @@
 * #### RESTful API testing and documentation - Swagger UI, Postman
 * #### Database - PostGres, PGAdmin4, H2
 * #### IDE - IntelliJ
+* #### Cloud Deployment - AWS, Docker
 ---
 ###### Author - Rehana S.
