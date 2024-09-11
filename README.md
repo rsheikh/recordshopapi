@@ -18,9 +18,11 @@
 
 ## Project Overview
 
-Mick Jagger has now retired and has his own record shop. However, he appreciates it's time to move [like himself] with 
-the times and bring his pen and paper inventory system to the modern age by computerising his inventory system.
-No more Dream On, just Come as You Are, show a little Love and Affection and peruse through the API.
+Mick Jagger has hung up his touring boots and opened his very own record shop. But even Mick knows it’s time to 
+'Start Me Up' and get with the times, swapping his pen and paper for a digital move by computerising his inventory. 
+No more _Dream On_ — just _Come as You Are_, show a little _Love and Affection_, and rock through the API like _Nothing
+Else Matters._ 
+
 
 ## Getting Started
 
