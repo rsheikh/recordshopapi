@@ -23,4 +23,6 @@ public interface AlbumManagerService {
     List<Album> getAlbumsByArtist(String artist);
 
     List<Album> getAlbumByAlbumName(String albumName);
+
+    List<Album> getAllAlbumsInStock();
 }

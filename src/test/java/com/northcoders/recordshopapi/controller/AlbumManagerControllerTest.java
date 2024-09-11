@@ -171,7 +171,7 @@ class AlbumManagerControllerTest {
         when(mockAlbumManagerServiceImpl.updateAlbumById(12L, albumOfNewValues)).thenReturn(albumOfNewValues);
 
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.put("/api/v1/recordshop/{id}", id)
+                        MockMvcRequestBuilders.patch("/api/v1/recordshop/{id}", id)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(mapper.writeValueAsString(albumOfNewValues)))
                 .andExpect(status().isOk());

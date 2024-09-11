@@ -27,6 +27,24 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     }
 
     @Override
+    public List<Album> getAllAlbumsInStock() {
+        List<Album> albums = new ArrayList<>();
+
+        albumManagerRepository.findAll().forEach(
+                album -> {
+                    if(album.getStockId().getQuantityInStock() > 0) {
+                        albums.add(album);
+                    }
+                });
+
+        if(!albums.isEmpty()) {
+            return albums;
+        } else {
+            throw new ItemNotFoundException("There is no stock!");
+        }
+    }
+
+    @Override
     public Album insertAlbum(Album album) {
         album.setStockId(new Stock(1L));
         return albumManagerRepository.save(album);

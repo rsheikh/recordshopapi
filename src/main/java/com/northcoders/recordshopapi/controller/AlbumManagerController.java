@@ -24,9 +24,16 @@ public class AlbumManagerController {
     @Autowired
     AlbumManagerService albumManagerService;
 
+//    //Replaced by method below
+//    @GetMapping
+//    public ResponseEntity<List<Album>> getAllAlbums() {
+//        List<Album> albums = albumManagerService.getAllAlbums();
+//        return new ResponseEntity<>(albums, HttpStatus.OK);
+//    }
+
     @GetMapping
     public ResponseEntity<List<Album>> getAllAlbums() {
-        List<Album> albums = albumManagerService.getAllAlbums();
+        List<Album> albums = albumManagerService.getAllAlbumsInStock();
         return new ResponseEntity<>(albums, HttpStatus.OK);
     }
 
