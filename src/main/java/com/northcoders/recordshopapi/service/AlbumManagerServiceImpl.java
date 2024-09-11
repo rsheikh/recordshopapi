@@ -75,17 +75,32 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     public List<Album> getAlbumsByGenre(String genre) {
         Genre genreToSearch = Genre.parseGenre((genre));
 
-        return albumManagerRepository.findAlbumsByGenre(genreToSearch);
+        List<Album> albumList =  albumManagerRepository.findAlbumsByGenre(genreToSearch);
+        if(!albumList.isEmpty()) {
+            return albumList;
+        } else {
+            throw new ItemNotFoundException(String.format("No albums found that matched the genre '%s'", genre));
+        }
     }
 
     @Override
     public List<Album> getAlbumsByYearReleased(Long yearReleased) {
-        return albumManagerRepository.findAlbumsByYearReleased(yearReleased);
+        List<Album> albumList =  albumManagerRepository.findAlbumsByYearReleased(yearReleased);
+        if(!albumList.isEmpty()) {
+            return albumList;
+        } else {
+            throw new ItemNotFoundException(String.format("No albums found that were released in '%s'", yearReleased));
+        }
     }
 
     @Override
     public List<Album> getAlbumsByArtist(String artist) {
-        return albumManagerRepository.findByArtistContainingIgnoreCase(artist);
+        List<Album> albumList = albumManagerRepository.findByArtistContainingIgnoreCase(artist);
+        if(!albumList.isEmpty()) {
+            return albumList;
+        } else {
+            throw new ItemNotFoundException(String.format("No albums found that match artist '%s'", artist));
+        }
     }
 
     @Override
