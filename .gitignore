@@ -34,3 +34,7 @@ build/
 
 ### Properties ###
 *.properties
+
+### Random Mac files ###
+!**src/main/.DS_Store
+!**src/.DS_Store
