@@ -105,7 +105,8 @@ public class AlbumManagerController {
     }
 
     public ResponseEntity<List<Album>> getAlbumsByGenre(String genre) {
-        List<Album> albums = albumManagerService.getAlbumsByGenre(genre);
+
+        List<Album> albums = albumManagerService.getAlbumsByGenre(genre.toUpperCase());
 
         return new ResponseEntity<>(albums, HttpStatus.OK);
     }

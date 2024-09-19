@@ -46,7 +46,11 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public Album insertAlbum(Album album) {
-        album.setStockId(new Stock(1L));
+        if(album.getStockId().getQuantityInStock() != null)
+            album.setStockId(new Stock(album.getStockId().getQuantityInStock()));
+        else
+            album.setStockId(new Stock(1L));
+
         return albumManagerRepository.save(album);
     }
 
@@ -91,9 +95,10 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public List<Album> getAlbumsByGenre(String genre) {
-        Genre genreToSearch = Genre.parseGenre((genre));
+//        Genre genreToSearch = Genre.parseGenre((genre));
 
-        List<Album> albumList =  albumManagerRepository.findAlbumsByGenre(genreToSearch);
+//        List<Album> albumList =  albumManagerRepository.findAlbumsByGenre(genreToSearch);
+        List<Album> albumList = albumManagerRepository.findAlbumsByGenre(genre);
         if(!albumList.isEmpty()) {
             return albumList;
         } else {

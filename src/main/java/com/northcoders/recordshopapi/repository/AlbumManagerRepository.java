@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
-    List<Album> findAlbumsByGenre(Genre genreToSearch);
+//    List<Album> findAlbumsByGenre(Genre genreToSearch);
+    List<Album> findAlbumsByGenre(String genreToSearch);
 
     List<Album> findAlbumsByYearReleased(Long yearReleased);
 

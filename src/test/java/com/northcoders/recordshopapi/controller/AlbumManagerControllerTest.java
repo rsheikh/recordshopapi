@@ -2,7 +2,6 @@ package com.northcoders.recordshopapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.northcoders.recordshopapi.exception.ItemNotFoundException;
-import com.northcoders.recordshopapi.exception.ParameterNotDefinedException;
 import com.northcoders.recordshopapi.model.Album;
 import com.northcoders.recordshopapi.model.Genre;
 import com.northcoders.recordshopapi.model.Stock;
@@ -107,7 +106,7 @@ class AlbumManagerControllerTest {
         List<Stock> stock = populateStock();
         List<Album> albums = populateAlbums(stock);
 
-        when(mockAlbumManagerServiceImpl.getAllAlbums()).thenReturn(albums);
+        when(mockAlbumManagerServiceImpl.getAllAlbumsInStock()).thenReturn(albums);
 
         this.mockMvcController.perform(
                 MockMvcRequestBuilders.get("/api/v1/recordshop"))

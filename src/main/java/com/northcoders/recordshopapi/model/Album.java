@@ -31,8 +31,10 @@ public class Album {
     @Column
     Long yearReleased;
 
+//    @Column
+//    Genre genre;
     @Column
-    Genre genre;
+    String genre;
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @OneToOne(cascade = CascadeType.ALL)
