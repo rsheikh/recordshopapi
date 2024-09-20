@@ -4,7 +4,7 @@
 
 # **Welcome to the Record Shop API**
 <p align="center">
-  <img src =src/main/resources/RecordShopLogo.jpg width="200" />
+  <img src =src/main/resources/record_shop_logo.png width="200" />
 
 
 ## "Step on in, where the vinyl spins—welcome to my groovy Record Shop!"
