@@ -76,10 +76,11 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
             albumToUpdate.setArtist(albumFromUrl.getArtist());
             albumToUpdate.setGenre(albumFromUrl.getGenre());
             albumToUpdate.setStockId(albumFromUrl.getStockId());
+            albumToUpdate.setYearReleased(albumFromUrl.getYearReleased());
             albumToUpdate = albumManagerRepository.save(albumToUpdate);
             return albumToUpdate;
         } else {
-            throw new ItemNotFoundException(String.format("Album with id '%s' cannot be found to be updated", albumId));
+            throw new ItemNotFoundException(String.format("Album with id %s cannot be found to be updated", albumId));
         }
     }
 
@@ -88,9 +89,9 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         Optional<Album> album = albumManagerRepository.findById(albumId);
         if(album.isPresent()) {
             albumManagerRepository.deleteById(albumId);
-            return String.format("Album with id '%s' has been deleted successfully", albumId);
+            return String.format("Album with id %s has been deleted successfully", albumId);
         } else {
-            throw new ItemNotFoundException(String.format("Album with id '%s' cannot be found to be deleted", albumId));
+            throw new ItemNotFoundException(String.format("Album with id %s cannot be found to be deleted", albumId));
         }
     }
 
@@ -103,7 +104,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         if(!albumList.isEmpty()) {
             return albumList;
         } else {
-            throw new ItemNotFoundException(String.format("No albums found that matched the genre '%s'", genre));
+            throw new ItemNotFoundException(String.format("No albums found that matched the genre: %s", genre));
         }
     }
 
@@ -113,7 +114,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         if(!albumList.isEmpty()) {
             return albumList;
         } else {
-            throw new ItemNotFoundException(String.format("No albums found that were released in '%s'", yearReleased));
+            throw new ItemNotFoundException(String.format("No albums found that were released in %s", yearReleased));
         }
     }
 
@@ -123,7 +124,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         if(!albumList.isEmpty()) {
             return albumList;
         } else {
-            throw new ItemNotFoundException(String.format("No albums found that match artist '%s'", artist));
+            throw new ItemNotFoundException(String.format("No albums found that match artist: %s", artist));
         }
     }
 
@@ -133,7 +134,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         if(!albumList.isEmpty()) {
             return albumList;
         } else {
-            throw new ItemNotFoundException(String.format("No albums found that match album name of '%s'", albumName));
+            throw new ItemNotFoundException(String.format("No albums found that match album name of %s", albumName));
         }
     }
 }
